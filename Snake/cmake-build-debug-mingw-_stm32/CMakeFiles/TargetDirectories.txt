@@ -1,0 +1,3 @@
+C:/Code/STM32/Snake/cmake-build-debug-mingw-_stm32/CMakeFiles/Snake.elf.dir
+C:/Code/STM32/Snake/cmake-build-debug-mingw-_stm32/CMakeFiles/edit_cache.dir
+C:/Code/STM32/Snake/cmake-build-debug-mingw-_stm32/CMakeFiles/rebuild_cache.dir
