@@ -25,7 +25,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdlib.h>
-
 #include "snake.h"
 /* USER CODE END Includes */
 
@@ -58,6 +57,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+//按键中断回调
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   switch (GPIO_Pin) {
@@ -77,6 +77,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
       break;
   }
 }
+//计时器更新回调，用来刷新游戏
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   UpdateSnake();
@@ -118,18 +119,19 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim4);
-  HAL_TIM_Base_Start(&htim3);//打开定时器
+  HAL_TIM_Base_Start_IT(&htim4);//游戏更新的定时器，中断模式
+  HAL_TIM_Base_Start(&htim3);//打开定时器，用于给食物生成随机数
 
   HAL_Delay(20);//等待OLED上电
-  CreateMap();
-  InitSnake();
+  CreateMap();//生成地图
+  InitSnake();//初始化蛇
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    //啥也不干，等待中断
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

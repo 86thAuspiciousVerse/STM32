@@ -5,7 +5,7 @@
 #include <sys/types.h>
 //地图定义
 #define MAP_WIDTH 32
-#define MAP_HEIGHT 16
+#define MAP_HEIGHT 12
 //数据定义
 #define WALL 1
 #define SNAKE 2
@@ -29,6 +29,8 @@ typedef struct {
     Direction direction;
     Point body[MAP_WIDTH*MAP_HEIGHT];
 }Snake;
+
+
 
 void CreateMap();
 void PrintData();
