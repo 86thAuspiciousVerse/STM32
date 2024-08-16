@@ -2,7 +2,10 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 #include <sys/types.h>
+
+#include "tim.h"
 
 
 uint8_t map[MAP_WIDTH][MAP_HEIGHT];//地图数据，包含蛇和食物和墙
@@ -25,6 +28,7 @@ void CreateMap() {
 //生成食物
 void GenerateFood() {
     uint8_t x, y;
+    srand(__HAL_TIM_GET_COUNTER(&htim3));//随机数种子设置
     do {
         x = rand() % (MAP_WIDTH - 2) + 1;
         y = rand() % (MAP_HEIGHT - 2) + 1;
@@ -34,7 +38,7 @@ void GenerateFood() {
 //初始化蛇
 void InitSnake(){
     snake.length = 3;//蛇的长度
-    snake.direction = RIGHT;//蛇的方向
+    snake.direction = DOWN;//蛇的方向
     for (uint8_t i=0;i<snake.length;i++) {
         snake.body[i].x = 3+i;
         snake.body[i].y = 3;
@@ -93,7 +97,7 @@ void PrintData() {
     for (uint8_t i=0; i<MAP_WIDTH; i++) {
         for (uint8_t j=0; j<MAP_HEIGHT; j++) {
             if (map[i][j]) {
-                OLED_DrawFilledRectangle(i*4,j*4,3,4,OLED_COLOR_NORMAL);
+                OLED_DrawRectangle(i*4,j*4,3,3,OLED_COLOR_NORMAL);
             }
             else {
                 OLED_DrawFilledRectangle(i*4,j*4,3,4,OLED_COLOR_REVERSED);

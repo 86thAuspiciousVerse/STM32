@@ -24,6 +24,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdlib.h>
+
 #include "snake.h"
 /* USER CODE END Includes */
 
@@ -80,6 +82,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   UpdateSnake();
   PrintData();
 }
+
 /* USER CODE END 0 */
 
 /**
@@ -113,8 +116,11 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C2_Init();
   MX_TIM4_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim4);
+  HAL_TIM_Base_Start(&htim3);//打开定时器
+
   HAL_Delay(20);//等待OLED上电
   CreateMap();
   InitSnake();
